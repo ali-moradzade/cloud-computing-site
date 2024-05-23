@@ -58,7 +58,7 @@ describe('Cloud Computing Website', () => {
             cy.contains('h1', 'Student Presentations').should('be.visible');
         });
 
-        it.only('each card should have github url logo reference link, and its functionality to redirect', () => {
+        it('each card should have github url logo reference link, and its functionality to redirect', () => {
             cy.viewport('macbook-16');
 
             cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
@@ -68,6 +68,17 @@ describe('Cloud Computing Website', () => {
 
             cy.get('ul.py-4 > li:nth-of-type(2) > a').invoke('removeAttr', 'target').click();
             cy.url().should('include', 'github.com');
+        });
+    });
+
+    describe('Schedule Page', () => {
+        it.only('should correctly load the schedule', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Schedule').click();
+            cy.contains('h1', 'Schedule').should('be.visible');
         });
     });
 });
