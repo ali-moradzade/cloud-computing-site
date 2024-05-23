@@ -81,7 +81,7 @@ describe('Cloud Computing Website', () => {
             cy.contains('h1', 'Schedule').should('be.visible');
         });
 
-        it.only('should have correct table entries', () => {
+        it('should have correct table entries', () => {
             cy.viewport('macbook-16');
 
             cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
@@ -97,6 +97,17 @@ describe('Cloud Computing Website', () => {
                     });
                 }
             });
+        });
+    });
+
+    describe('Useful Content', () => {
+        it('should correctly load the Useful Content page', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Usefulcontent').click();
+            cy.contains('h1', 'Useful Content').should('be.visible');
         });
     });
 });
