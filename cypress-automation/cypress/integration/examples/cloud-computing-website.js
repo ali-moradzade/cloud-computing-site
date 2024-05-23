@@ -8,7 +8,7 @@ describe('Cloud Computing Website', () => {
     });
 
     describe('Home Page', () => {
-        it.only('Get Started button should correctly work', () => {
+        it('Get Started button should correctly work', () => {
             cy.viewport('macbook-16');
 
             cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
@@ -25,6 +25,49 @@ describe('Cloud Computing Website', () => {
                 const rect = $el[0].getBoundingClientRect();
                 expect(rect.top).to.be.at.least(0); // Element is now in view
             });
+        });
+
+        it('Cloud Computing logo should direct to home page', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Cloud Computing').click();
+            cy.url().should('eq', 'https://aut-ce-cloud-computing.github.io/CC_website/spring2024');
+        });
+    });
+
+    describe('Assignments Page', () => {
+        it('should correctly load the assignments', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Assignments').click();
+            cy.contains('h1', 'Assignments').should('be.visible');
+        });
+    });
+
+    describe('Presentations Page', () => {
+        it('should correctly load the presentations', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Presentations').click();
+            cy.contains('h1', 'Student Presentations').should('be.visible');
+        });
+
+        it.only('each card should have github url logo reference link, and its functionality to redirect', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Presentations').click();
+            cy.wait(1000);
+
+            cy.get('ul.py-4 > li:nth-of-type(2) > a').invoke('removeAttr', 'target').click();
+            cy.url().should('include', 'github.com');
         });
     });
 });
