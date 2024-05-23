@@ -72,13 +72,31 @@ describe('Cloud Computing Website', () => {
     });
 
     describe('Schedule Page', () => {
-        it.only('should correctly load the schedule', () => {
+        it('should correctly load the schedule', () => {
             cy.viewport('macbook-16');
 
             cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
 
             cy.contains('a', 'Schedule').click();
             cy.contains('h1', 'Schedule').should('be.visible');
+        });
+
+        it.only('should have correct table entries', () => {
+            cy.viewport('macbook-16');
+
+            cy.visit('https://aut-ce-cloud-computing.github.io/CC_website/');
+
+            cy.contains('a', 'Schedule').click();
+            cy.get('tr td:nth-child(1)').each(($el, index) => {
+                const text = $el.text();
+
+                if (text.includes('Lecture 1')) {
+                    cy.get('tr td:nth-child(1)').eq(index).next().then((price) => {
+                        const priceText = price.text();
+                        expect(priceText).to.equal('Intro to cloud computing');
+                    });
+                }
+            });
         });
     });
 });
